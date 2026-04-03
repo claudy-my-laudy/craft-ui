@@ -92,6 +92,16 @@ export {
   type ClipPosition,
 } from './components/CraftClippedCard'
 export {
+  CraftAccordion,
+  CraftAccordionItem,
+  CraftAccordionTrigger,
+  CraftAccordionContent,
+  type CraftAccordionProps,
+  type CraftAccordionItemProps,
+  type CraftAccordionTriggerProps,
+  type CraftAccordionContentProps,
+} from './components/CraftAccordion'
+export {
   CraftTable,
   CraftTableCaption,
   CraftTableHeader,

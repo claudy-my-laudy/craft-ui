@@ -5,6 +5,12 @@ export { CraftProvider, type CraftProviderProps, type CraftVibe } from './compon
 export { CraftCard, type CraftCardProps, type CraftCrayon } from './components/CraftCard'
 export { RopeFrame, type RopeFrameProps } from './components/RopeFrame'
 export {
+  CraftRopeBorder,
+  type CraftRopeBorderProps,
+  type RopeThickness,
+  type RopeVariant,
+} from './components/CraftRopeBorder'
+export {
   CraftButton,
   type CraftButtonProps,
   type CraftButtonVariant,

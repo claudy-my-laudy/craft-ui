@@ -1,0 +1,1 @@
+// Ensures the public directory exists for Storybook and Vercel builds.

@@ -3,14 +3,15 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
-export default defineConfig(({ command }) => {
-  // Storybook's Vite builder reuses this Vite config, so we need to avoid running
-  // declaration bundling (`vite-plugin-dts`) during `build-storybook`.
-  const isLibraryBuild = command === 'build'
+export default defineConfig(() => {
+  // Storybook's Vite builder reuses this Vite config. We only want
+  // declaration bundling (`vite-plugin-dts`) when we explicitly build the library.
+  const shouldBuildTypes = process.env.CRAFTUI_BUILD_LIBRARY === 'true'
+
   return {
     plugins: [
       react(),
-      ...(isLibraryBuild
+      ...(shouldBuildTypes
         ? [
             dts({
               include: ['src/**/*.{ts,tsx}'],

@@ -26,7 +26,7 @@
     "**/*.css"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "CRAFTUI_BUILD_LIBRARY=true vite build",
     "lint": "eslint src .storybook",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

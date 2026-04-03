@@ -5,41 +5,26 @@
 @tailwind utilities;
 
 @layer components {
-  /* ─────────────────────────────────────────────────────────────────────
-   * Core paper body
-   *
-   * Stack order (bottom → top):
-   *  1. radial gradient  — uneven fiber density (darker edges, lighter centre)
-   *  2. noise            — fine grain (multiply → darkens only peaks)
-   *  3. fiber            — coarse lumps (soft-light → mid-tone contrast)
-   *  4. lit              — diffuse-lit noise (multiply → 3-D surface relief)
-   *
-   * The lit layer is what makes this look physically real rather than a
-   * flat opacity wash — it simulates directional light catching raised
-   * paper fibers and casting micro-shadows into the valleys.
-   * ─────────────────────────────────────────────────────────────────────
-   */
   .craft-paper-base {
     @apply text-craft-ink;
     background-color: var(--craft-paper);
     background-image:
-      var(--craft-paper-lit),
       var(--craft-paper-noise),
       var(--craft-paper-fiber),
+      var(--craft-paper-shadow),
       var(--craft-paper-gradient);
-    background-blend-mode: multiply, multiply, soft-light, normal;
-    /* Subtle inner shadow adds depth — paper has slight thickness */
+    background-blend-mode: soft-light, soft-light, overlay, normal;
     box-shadow: inset 0 0 48px rgb(0 0 0 / 0.04);
   }
 
   [data-craft-vibe='scrapbook'] .craft-paper-base,
   [data-craft-vibe='scrapbook'].craft-paper-base {
     background-image:
-      var(--craft-paper-lit),
       var(--craft-paper-noise),
       var(--craft-paper-fiber-strong),
+      var(--craft-paper-shadow),
       var(--craft-paper-gradient);
-    background-blend-mode: multiply, multiply, soft-light, normal;
+    background-blend-mode: soft-light, soft-light, overlay, normal;
   }
 
   /* ── Kraft variant ──────────────────────────────────────────────────── */
@@ -47,11 +32,11 @@
     @apply text-craft-ink;
     background-color: var(--craft-paper-kraft);
     background-image:
-      var(--craft-paper-lit),
       var(--craft-paper-noise),
       var(--craft-paper-fiber),
+      var(--craft-paper-shadow),
       var(--craft-paper-kraft-gradient);
-    background-blend-mode: multiply, multiply, soft-light, normal;
+    background-blend-mode: soft-light, soft-light, overlay, normal;
     box-shadow: inset 0 0 48px rgb(0 0 0 / 0.06);
   }
 
@@ -60,11 +45,11 @@
     @apply text-craft-ink;
     background-color: var(--craft-paper-parchment);
     background-image:
-      var(--craft-paper-lit),
       var(--craft-paper-noise),
       var(--craft-paper-fiber),
+      var(--craft-paper-shadow),
       var(--craft-paper-parchment-gradient);
-    background-blend-mode: multiply, multiply, soft-light, normal;
+    background-blend-mode: soft-light, soft-light, overlay, normal;
     box-shadow: inset 0 0 48px rgb(0 0 0 / 0.04);
   }
 

@@ -1,0 +1,48 @@
+/**
+ * Craft UI tokens — scrapbook / handmade + crayon accents.
+ */
+:root {
+  /* Handmade paper (warm cream; use vibe="scrapbook" for sunnier yellow) */
+  --craft-paper: #f0e3bf;
+  --craft-ink: #1c1914;
+  --craft-muted: #5c5346;
+
+  /* Cardstock / school-supply brights */
+  --craft-orange: #e85d2a;
+  --craft-green: #2dd54a;
+  --craft-pink: #ff4fa8;
+  --craft-yellow: #f5c018;
+  --craft-red: #d12a3a;
+  --craft-blue: #3b82f6;
+  /* Extra punch for scrapbook chips (hot pink / lime) */
+  --craft-lime: #9ae06b;
+
+  /* Twine / cord (scrapbooking string — less red than classic “rope”) */
+  --craft-twine: #5c4028;
+  /* Rope border stripes (frame) — warm jute / tan */
+  --craft-rope-light: #d2b48c;
+  --craft-rope-mid: #a68b6d;
+  --craft-rope-dark: #5d4037;
+
+  /* Display = storybook script; marker = shaky label feel */
+  --craft-font-display: 'Caveat', cursive;
+  --craft-font-marker: 'Kalam', 'Caveat', cursive;
+
+  /* Grain + chunkier fiber (scrapbook handmade sheet) */
+  /* Fine grain layer — smaller scale, a bit softer than before */
+  --craft-paper-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)' opacity='.12'/%3E%3C/svg%3E");
+  /* Fiber layer — lower frequency + higher opacity to show visible fibers */
+  --craft-paper-fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='.16'/%3E%3C/svg%3E");
+  --craft-paper-fiber-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.19' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='.24'/%3E%3C/svg%3E");
+
+  /* Teal → peach translucent label (dimension tags, etc.) */
+  --craft-tag-gradient: linear-gradient(118deg, rgb(160 210 200 / 0.82), rgb(240 195 175 / 0.88));
+}
+
+/** Sunlit handmade sheet + slightly inkier neutrals (birthday-card / scrapbook vibe) */
+[data-craft-vibe='scrapbook'] {
+  --craft-paper: #ebd968;
+  --craft-ink: #2a2418;
+  --craft-muted: #5c512e;
+  --craft-twine: #4f351f;
+}

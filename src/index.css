@@ -1,0 +1,381 @@
+@import './styles/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Core paper body (grain + low-frequency “fiber” lumps) */
+  .craft-paper-base {
+    @apply text-craft-ink;
+    background-color: var(--craft-paper);
+    background-image: var(--craft-paper-noise), var(--craft-paper-fiber);
+    background-blend-mode: multiply, soft-light;
+  }
+
+  [data-craft-vibe='scrapbook'] .craft-paper-base,
+  [data-craft-vibe='scrapbook'].craft-paper-base {
+    background-image: var(--craft-paper-noise), var(--craft-paper-fiber-strong);
+  }
+
+  .craft-paper-surface {
+    @apply craft-paper-base shadow-craft-paper;
+  }
+
+  .craft-paper-surface-lg {
+    @apply craft-paper-base shadow-craft-paper-lg;
+  }
+
+  /** Foam / glue dot lift — element looks pasted on top of the sheet */
+  .craft-lift-paste {
+    @apply craft-paper-base;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.05),
+      3px 4px 0 rgb(0 0 0 / 0.07),
+      7px 12px 22px rgb(0 0 0 / 0.11),
+      0 0 0 1px rgb(0 0 0 / 0.06);
+  }
+
+  .craft-lift-paste-lg {
+    @apply craft-paper-base;
+    box-shadow:
+      0 2px 3px rgb(0 0 0 / 0.06),
+      4px 6px 0 rgb(0 0 0 / 0.08),
+      10px 16px 30px rgb(0 0 0 / 0.13),
+      0 0 0 1px rgb(0 0 0 / 0.07);
+  }
+
+  /** Classic rope: two diagonal repeating gradients (no SVG tile). */
+  .craft-rope-frame {
+    --craft-rope-outer-r: 14px;
+    --craft-rope-band: 10px;
+    --craft-rope-inner-r: max(4px, calc(var(--craft-rope-outer-r) - var(--craft-rope-band)));
+
+    padding: var(--craft-rope-band);
+    border-radius: var(--craft-rope-outer-r);
+    background:
+      repeating-linear-gradient(
+        -26deg,
+        var(--craft-rope-mid) 0 2px,
+        var(--craft-rope-light) 2px 5px,
+        var(--craft-rope-dark) 5px 8px,
+        var(--craft-rope-mid) 8px 11px
+      ),
+      repeating-linear-gradient(
+        58deg,
+        transparent 0 6px,
+        rgb(0 0 0 / 0.05) 6px 7px
+      );
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.35),
+      0 3px 10px rgb(0 0 0 / 0.12);
+  }
+
+  .craft-rope-inner {
+    @apply craft-paper-surface min-h-[2rem];
+    border-radius: var(--craft-rope-inner-r);
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
+  }
+
+  /** Rough washi / tape edges (subtle jag) */
+  .craft-washi-torn {
+    clip-path: polygon(
+      0% 12%,
+      2% 0%,
+      98% 0%,
+      100% 10%,
+      100% 90%,
+      98% 100%,
+      2% 100%,
+      0% 88%
+    );
+  }
+
+  /**
+   * Progress fill: chamfered tape ends (angled corners like cut washi),
+   * not deckle/torn edges.
+   */
+  .craft-washi-progress-fill {
+    clip-path: polygon(
+      var(--craft-washi-chamfer, 5px) 0%,
+      calc(100% - var(--craft-washi-chamfer, 5px)) 0%,
+      100% var(--craft-washi-chamfer, 5px),
+      100% calc(100% - var(--craft-washi-chamfer, 5px)),
+      calc(100% - var(--craft-washi-chamfer, 5px)) 100%,
+      var(--craft-washi-chamfer, 5px) 100%,
+      0% calc(100% - var(--craft-washi-chamfer, 5px)),
+      0% var(--craft-washi-chamfer, 5px)
+    );
+  }
+
+  /** Crinkled translucent overlay */
+  .craft-tissue-panel {
+    @apply shadow-craft-paper;
+    border: 1px solid rgb(255 255 255 / 0.55);
+    background-color: rgb(255 255 255 / 0.42);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-image: var(--craft-paper-noise);
+    background-blend-mode: soft-light;
+  }
+
+  /** Sparkle / glitter paper accent layer (use inside a positioned element) */
+  .craft-glitter-overlay {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        125deg,
+        transparent 0,
+        transparent 3px,
+        rgb(255 255 255 / 0.35) 3px,
+        transparent 6px
+      ),
+      radial-gradient(circle at 22% 28%, rgb(255 255 255 / 0.55), transparent 42%),
+      radial-gradient(circle at 78% 72%, rgb(255 215 170 / 0.45), transparent 38%);
+    mix-blend-mode: soft-light;
+  }
+
+  /** Text fields — paper inset + crayon focus ring */
+  .craft-input-field {
+    @apply w-full rounded-lg border-2 border-black/15 px-3 py-2 font-craftSans text-craft-ink;
+    @apply bg-white/85 shadow-[inset_0_2px_5px_rgb(0_0_0_/_0.05)];
+    @apply disabled:cursor-not-allowed disabled:opacity-55;
+    border-color: rgb(0 0 0 / 0.15);
+  }
+
+  .craft-input-field:focus-visible {
+    outline: none;
+    border-color: color-mix(in srgb, var(--craft-orange) 50%, transparent);
+    box-shadow:
+      inset 0 2px 5px rgb(0 0 0 / 0.05),
+      0 0 0 2px var(--craft-paper),
+      0 0 0 4px var(--craft-orange);
+  }
+
+  .craft-input-field::placeholder {
+    color: var(--craft-muted);
+    opacity: 0.72;
+  }
+
+  /** Debossed “pressed into paper” field (Note / stationery look) */
+  .craft-input-field.craft-input-field-paper {
+    @apply rounded-xl;
+    border-width: 1px;
+    border-color: rgb(0 0 0 / 0.12);
+    background-color: rgb(250 247 238);
+    box-shadow:
+      inset 3px 4px 7px rgb(0 0 0 / 0.1),
+      inset -2px -2px 6px rgb(255 255 255 / 0.75),
+      inset 0 1px 0 rgb(255 255 255 / 0.98);
+  }
+
+  .craft-input-field.craft-input-field-paper:focus-visible {
+    border-color: color-mix(in srgb, var(--craft-orange) 55%, transparent);
+    box-shadow:
+      inset 3px 4px 7px rgb(0 0 0 / 0.1),
+      inset -2px -2px 6px rgb(255 255 255 / 0.75),
+      inset 0 1px 0 rgb(255 255 255 / 0.98),
+      0 0 0 2px var(--craft-paper),
+      0 0 0 4px var(--craft-orange);
+  }
+
+  /**
+   * Radio “sketch tile”: blue diagonal hatch in square (Rough-like read, pure CSS).
+   * Inner .craft-radio-inner fills with orange when peer-checked.
+   */
+  .craft-radio-sketch-hatch {
+    background-color: color-mix(in srgb, var(--craft-blue) 14%, white);
+    background-image: repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 4px,
+      color-mix(in srgb, var(--craft-blue) 70%, rgb(30 58 138)) 4px,
+      color-mix(in srgb, var(--craft-blue) 70%, rgb(30 58 138)) 5px,
+      transparent 5px,
+      transparent 12px
+    );
+  }
+
+  .craft-radio-sketch-box {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.55),
+      inset 0 -1px 2px rgb(0 0 0 / 0.06);
+  }
+
+  /** Scrapbook list — pushpin / dot / numbered (see CraftList) */
+  .craft-list {
+    @apply font-craftSans text-craft-ink;
+  }
+
+  .craft-list--pushpin {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .craft-list--pushpin > li {
+    position: relative;
+    padding-left: 1.85rem;
+    margin: 0.35rem 0;
+  }
+
+  .craft-list--pushpin > li::before {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    top: 0.32em;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 9999px;
+    background: linear-gradient(
+      145deg,
+      var(--craft-red) 0%,
+      color-mix(in srgb, var(--craft-red) 70%, black) 100%
+    );
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.22),
+      inset 0 1px 0 rgb(255 255 255 / 0.35);
+    z-index: 1;
+  }
+
+  .craft-list--pushpin > li::after {
+    content: '';
+    position: absolute;
+    left: 0.38rem;
+    top: 0.75em;
+    width: 2px;
+    height: 0.62rem;
+    background: linear-gradient(180deg, rgb(80 80 78), rgb(130 128 120));
+    border-radius: 1px;
+    transform: rotate(-12deg);
+    opacity: 0.85;
+  }
+
+  /** No CSS marker — put CraftPaperClip or other art inside each `<li>` */
+  .craft-list--none {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .craft-list--none > li {
+    margin: 0.35rem 0;
+  }
+
+  .craft-list--dot {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .craft-list--dot > li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin: 0.3rem 0;
+  }
+
+  .craft-list--dot > li::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.55em;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 9999px;
+    background: var(--craft-ink);
+    opacity: 0.75;
+  }
+
+  .craft-list--numbered {
+    list-style: none;
+    counter-reset: craft-list;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .craft-list--numbered > li {
+    counter-increment: craft-list;
+    position: relative;
+    padding-left: 2rem;
+    margin: 0.35rem 0;
+  }
+
+  .craft-list--numbered > li::before {
+    content: counter(craft-list) '.';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.5rem;
+    font-family: var(--craft-font-display), 'Caveat', cursive;
+    font-size: 1.15em;
+    font-weight: 600;
+    color: var(--craft-ink);
+    line-height: inherit;
+  }
+
+  /** Data table — paper sheet */
+  .craft-table-wrap {
+    @apply overflow-x-auto rounded-lg border-2 shadow-craft-paper;
+    border-color: rgb(0 0 0 / 0.12);
+    background: rgb(255 255 255 / 0.55);
+  }
+
+  .craft-table {
+    @apply w-full border-collapse text-left text-sm;
+  }
+
+  .craft-table-caption {
+    @apply caption-bottom px-3 py-2 font-craft text-base font-semibold text-craft-ink;
+  }
+
+  .craft-table-head {
+    @apply border-b-2 font-craftMarker text-base font-semibold text-craft-ink;
+    border-bottom-color: rgb(0 0 0 / 0.12);
+    background-color: color-mix(in srgb, var(--craft-paper) 90%, white);
+  }
+
+  .craft-table-head th {
+    @apply px-3 py-2.5;
+  }
+
+  .craft-table-body tr {
+    @apply border-b;
+    border-color: rgb(0 0 0 / 0.1);
+    background-color: rgb(255 255 255 / 0.4);
+  }
+
+  .craft-table-body tr:nth-child(even) {
+    background: rgb(255 252 244 / 0.85);
+  }
+
+  .craft-table-cell {
+    @apply px-3 py-2 align-middle text-craft-ink;
+  }
+
+  .craft-dialog::backdrop {
+    background: rgb(30 24 18 / 0.45);
+  }
+
+  @keyframes craft-toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.6rem) rotate(-1deg);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+
+  .craft-toast-enter {
+    animation: craft-toast-in 0.35s ease-out both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .craft-toast-enter {
+      animation: none;
+    }
+  }
+}

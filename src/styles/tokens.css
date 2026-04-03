@@ -2,8 +2,23 @@
  * Craft UI tokens — scrapbook / handmade + crayon accents.
  */
 :root {
-  /* Handmade paper (warm cream; use vibe="scrapbook" for sunnier yellow) */
-  --craft-paper: #f0e3bf;
+  /* ── Paper base colors ─────────────────────────────────────────────────
+   * Each variant uses a radial gradient to simulate uneven fiber density.
+   * Paper is lighter at the wet-laid centre and naturally darker toward edges.
+   */
+
+  /* Default: warm handmade cream (notebook / off-white) */
+  --craft-paper: #ede8da;
+  --craft-paper-gradient: radial-gradient(ellipse at 42% 35%, #f7f2e8, #ede8da 55%, #e0d9c6);
+
+  /* Kraft: unbleached brown bag / packaging paper */
+  --craft-paper-kraft: #c8a040;
+  --craft-paper-kraft-gradient: radial-gradient(ellipse at 38% 38%, #d9b96a, #c8a040 55%, #b08828);
+
+  /* Parchment: aged document / yellowed paper */
+  --craft-paper-parchment: #ede4a0;
+  --craft-paper-parchment-gradient: radial-gradient(ellipse at 45% 40%, #f5edbb, #ede4a0 50%, #dfd48a);
+
   --craft-ink: #1c1914;
   --craft-muted: #5c5346;
 
@@ -14,35 +29,25 @@
   --craft-yellow: #f5c018;
   --craft-red: #d12a3a;
   --craft-blue: #3b82f6;
-  /* Extra punch for scrapbook chips (hot pink / lime) */
   --craft-lime: #9ae06b;
 
-  /* Twine / cord (scrapbooking string — less red than classic “rope”) */
+  /* Twine / cord */
   --craft-twine: #5c4028;
-  /* Rope border stripes (frame) — warm jute / tan */
   --craft-rope-light: #d2b48c;
   --craft-rope-mid: #a68b6d;
   --craft-rope-dark: #5d4037;
 
-  /* Display = storybook script; marker = shaky label feel */
   --craft-font-display: 'Caveat', cursive;
   --craft-font-marker: 'Kalam', 'Caveat', cursive;
 
   /* ── Paper texture layers ──────────────────────────────────────────────
    *
-   * Three SVG noise layers that stack to produce a convincing handmade-paper
-   * look without any image assets:
+   * noise  — fine grain (high-frequency fractalNoise, ~0.65 cycles/px)
+   * fiber  — coarse fiber lumps (low-frequency, ~0.22 cycles/px)
+   * shadow — mid-tone surface noise blended with luminosity for grain depth
    *
-   *  noise  — fine grain (high-frequency fractalNoise, ~0.65 cycles/px)
-   *  fiber  — coarse fiber lumps (low-frequency, ~0.22 cycles/px)
-   *  lit    — the key upgrade: feDiffuseLighting turns the noise into a
-   *            physically-lit surface. Light hits peaks and casts micro-shadows
-   *            in valleys, making it read as real texture rather than just
-   *            a flat opacity overlay.
-   *
-   * All three are tiled (stitchTiles="stitch") so they seamlessly repeat
-   * across any card size. They are composited in craft-paper-base via
-   * multiply / soft-light blend modes.
+   * The luminosity blend on the shadow layer is the key — it adds textural
+   * contrast without shifting hue or darkening the base color.
    */
 
   /* Fine grain */
@@ -51,31 +56,13 @@
   /* Coarse fiber */
   --craft-paper-fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='.14'/%3E%3C/svg%3E");
 
-  /* Diffuse-lit surface — produces physically-accurate micro-shadow grain */
-  --craft-paper-lit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='lit' color-interpolation-filters='linearRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23ffffff' surfaceScale='1.8' result='light'%3E%3CfeDistantLight azimuth='45' elevation='65'/%3E%3C/feDiffuseLighting%3E%3CfeBlend in='SourceGraphic' in2='light' mode='multiply' result='blended'/%3E%3CfeComposite in='blended' in2='SourceGraphic' operator='in'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23lit)' opacity='1'/%3E%3C/svg%3E");
+  /* Surface relief noise — blended with luminosity for grain without darkening */
+  --craft-paper-shadow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='1'/%3E%3C/svg%3E");
 
   /* Stronger fiber for scrapbook vibe */
   --craft-paper-fiber-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.19' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='.22'/%3E%3C/svg%3E");
 
-  /* ── Paper variant base colors ─────────────────────────────────────────
-   * Each variant uses a radial gradient to simulate uneven fiber density
-   * (paper is never perfectly flat in color — edges are slightly darker,
-   * and the "wet-laid" center is lighter).
-   */
-
-  /* Default: warm handmade cream */
-  --craft-paper: #f0e3bf;
-  --craft-paper-gradient: radial-gradient(ellipse at 38% 42%, #f5ebd0, #e0c98c);
-
-  /* Kraft: unbleached brown bag / packaging paper */
-  --craft-paper-kraft: #c8a969;
-  --craft-paper-kraft-gradient: radial-gradient(ellipse at 35% 40%, #d4b070, #b08030);
-
-  /* Parchment: aged document / yellowed paper */
-  --craft-paper-parchment: #f0dfa0;
-  --craft-paper-parchment-gradient: radial-gradient(ellipse at 55% 45%, #f8efc0, #d9c070);
-
-  /* Teal → peach translucent label (dimension tags, etc.) */
+  /* Teal → peach translucent label */
   --craft-tag-gradient: linear-gradient(118deg, rgb(160 210 200 / 0.82), rgb(240 195 175 / 0.88));
 }
 

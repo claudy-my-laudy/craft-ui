@@ -1,0 +1,19 @@
+{
+  "name": "kuboxx-craft-ui",
+  "owner": {
+    "name": "kuboxx",
+    "url": "https://github.com/HelicopterHelicopter/craft-ui"
+  },
+  "metadata": {
+    "description": "Cursor Marketplace: agent skill for @kuboxx/craft-ui (React craft UI library).",
+    "version": "0.1.1",
+    "pluginRoot": "plugins"
+  },
+  "plugins": [
+    {
+      "name": "kuboxx-craft-ui",
+      "source": "./plugins/kuboxx-craft-ui",
+      "description": "Teaches agents correct @kuboxx/craft-ui usage: CSS, CraftProvider, and component catalog."
+    }
+  ]
+}

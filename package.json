@@ -1,10 +1,16 @@
 {
-  "name": "craft-ui",
-  "version": "0.1.0",
+  "name": "@kuboxx/craft-ui",
+  "version": "0.1.1",
   "description": "Craft-themed React UI primitives — paper, rope, crayon palette",
+  "homepage": "https://craft-ui.jheels.in/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HelicopterHelicopter/craft-ui.git"
+  },
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "cursor-skills"
   ],
   "main": "./dist/craft-ui.cjs",
   "module": "./dist/craft-ui.js",
@@ -64,7 +70,9 @@
     "react",
     "ui",
     "craft",
-    "tailwind"
+    "tailwind",
+    "cursor",
+    "agent-skill"
   ],
   "license": "MIT",
   "dependencies": {

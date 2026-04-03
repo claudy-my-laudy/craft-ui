@@ -5,18 +5,61 @@ React UI primitives with a **craft-table** look: handmade **paper** surfaces, **
 ## Install
 
 ```bash
-npm install craft-ui
+npm install @kuboxx/craft-ui
 ```
 
 Peer dependencies: `react` and `react-dom` (18+ or 19+).
+
+## Storybook
+
+Live preview: https://craft-ui.jheels.in/
+
+## Agent skill (Cursor, Claude Code, …)
+
+The npm tarball bundles the same **[Agent Skills](https://agentskills.io/)**-compatible folder so coding assistants get correct `@kuboxx/craft-ui` imports, the CSS entry, `CraftProvider`, and the component catalog. Format: `cursor-skills/craft-ui-library-usage/SKILL.md` (folder name is historical; the skill is not Cursor-only).
+
+**After `npm install @kuboxx/craft-ui`**, copy `node_modules/@kuboxx/craft-ui/cursor-skills/craft-ui-library-usage` out of `node_modules` into the skills directory your tool uses (so it survives reinstalls and can be committed if you want).
+
+### Cursor
+
+```bash
+mkdir -p .cursor/skills
+cp -R node_modules/@kuboxx/craft-ui/cursor-skills/craft-ui-library-usage .cursor/skills/
+```
+
+Global: copy the same folder to `~/.cursor/skills/`. See [Cursor docs: Agent Skills](https://cursor.com/docs/context/skills).
+
+### Claude Code
+
+```bash
+mkdir -p .claude/skills
+cp -R node_modules/@kuboxx/craft-ui/cursor-skills/craft-ui-library-usage .claude/skills/
+```
+
+Global: copy to `~/.claude/skills/`. See [Claude Code docs: Skills](https://code.claude.com/docs/en/skills). Invoke with `/craft-ui-library-usage` or let Claude load it when the task matches the skill description.
+
+### Other agents
+
+If your tool supports Agent Skills, copy the `craft-ui-library-usage` directory into that product’s skills path (same layout: one folder containing `SKILL.md`).
+
+### Cursor & Claude Code marketplaces
+
+Both products list **plugins** (Cursor) or **plugins** with namespaced skills (Claude Code), not raw `SKILL.md` uploads. This repo ships ready-to-submit trees:
+
+- **Cursor:** `plugins/kuboxx-craft-ui/` + root `.cursor-plugin/marketplace.json`
+- **Claude Code:** `claude-plugin/kuboxx-craft-ui/`
+
+Maintainer checklist, official submit URLs, and local tryout commands: **[docs/marketplace-publish.md](docs/marketplace-publish.md)**.
+
+Contributors: canonical source in git is [`cursor-skills/craft-ui-library-usage/SKILL.md`](cursor-skills/craft-ui-library-usage/SKILL.md). This repo’s `.cursor/skills/craft-ui-library-usage/SKILL.md` is a symlink to that file for local Cursor development.
 
 ## Usage
 
 Import the bundle (includes styles) and wrap your tree if you want the default theme hook:
 
 ```tsx
-import { CraftProvider, CraftCard, CraftButton, RopeFrame } from 'craft-ui'
-import 'craft-ui/styles.css'
+import { CraftProvider, CraftCard, CraftButton, RopeFrame } from '@kuboxx/craft-ui'
+import '@kuboxx/craft-ui/styles.css'
 
 export function App() {
   return (
@@ -112,10 +155,10 @@ Storybook: **Craft → Phase 6 data display**.
 
 ### Tailwind in your app
 
-This library ships **CSS** (`craft-ui/styles.css`) built with Tailwind utility classes. If your app uses Tailwind too, either:
+This library ships **CSS** (`@kuboxx/craft-ui/styles.css`) built with Tailwind utility classes. If your app uses Tailwind too, either:
 
 - Rely on the prebuilt CSS only (no extra config), or
-- Add `@import "craft-ui/dist/craft-ui.css"` is not needed—the `styles.css` export points at the same file. Extend your `tailwind.config` `content` to include `./node_modules/craft-ui/dist/**/*.js` only if you need to safelist or purge alongside custom builds (advanced).
+- A separate `@import` of `dist/craft-ui.css` is not needed—the `styles.css` export points at the same file. Extend your `tailwind.config` `content` to include `./node_modules/@kuboxx/craft-ui/dist/**/*.js` only if you need to safelist or purge alongside custom builds (advanced).
 
 Design tokens live under `:root` in the stylesheet (`--craft-paper`, `--craft-orange`, etc.).
 

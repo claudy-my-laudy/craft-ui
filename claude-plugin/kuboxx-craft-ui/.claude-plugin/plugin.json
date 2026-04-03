@@ -1,0 +1,23 @@
+{
+  "name": "kuboxx-craft-ui",
+  "version": "0.1.1",
+  "description": "Agent skill for @kuboxx/craft-ui: install, styles.css, CraftProvider, scrapbook vibe, full component catalog, and composition patterns (surfaces, forms, navigation, overlays, data display).",
+  "author": {
+    "name": "kuboxx",
+    "url": "https://github.com/HelicopterHelicopter/craft-ui"
+  },
+  "homepage": "https://craft-ui.jheels.in/",
+  "repository": "https://github.com/HelicopterHelicopter/craft-ui",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "react-ui",
+    "ui",
+    "craft-ui",
+    "kuboxx",
+    "design-system",
+    "components",
+    "tailwind",
+    "agent-skill"
+  ]
+}

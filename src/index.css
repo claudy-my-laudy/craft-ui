@@ -5,31 +5,92 @@
 @tailwind utilities;
 
 @layer components {
-  /* Core paper body (grain + low-frequency “fiber” lumps) */
+  /* ─────────────────────────────────────────────────────────────────────
+   * Core paper body
+   *
+   * Stack order (bottom → top):
+   *  1. radial gradient  — uneven fiber density (darker edges, lighter centre)
+   *  2. noise            — fine grain (multiply → darkens only peaks)
+   *  3. fiber            — coarse lumps (soft-light → mid-tone contrast)
+   *  4. lit              — diffuse-lit noise (multiply → 3-D surface relief)
+   *
+   * The lit layer is what makes this look physically real rather than a
+   * flat opacity wash — it simulates directional light catching raised
+   * paper fibers and casting micro-shadows into the valleys.
+   * ─────────────────────────────────────────────────────────────────────
+   */
   .craft-paper-base {
     @apply text-craft-ink;
     background-color: var(--craft-paper);
-    background-image: var(--craft-paper-noise), var(--craft-paper-fiber);
-    background-blend-mode: multiply, soft-light;
+    background-image:
+      var(--craft-paper-lit),
+      var(--craft-paper-noise),
+      var(--craft-paper-fiber),
+      var(--craft-paper-gradient);
+    background-blend-mode: multiply, multiply, soft-light, normal;
+    /* Subtle inner shadow adds depth — paper has slight thickness */
+    box-shadow: inset 0 0 48px rgb(0 0 0 / 0.04);
   }
 
   [data-craft-vibe='scrapbook'] .craft-paper-base,
   [data-craft-vibe='scrapbook'].craft-paper-base {
-    background-image: var(--craft-paper-noise), var(--craft-paper-fiber-strong);
+    background-image:
+      var(--craft-paper-lit),
+      var(--craft-paper-noise),
+      var(--craft-paper-fiber-strong),
+      var(--craft-paper-gradient);
+    background-blend-mode: multiply, multiply, soft-light, normal;
+  }
+
+  /* ── Kraft variant ──────────────────────────────────────────────────── */
+  .craft-paper-kraft {
+    @apply text-craft-ink;
+    background-color: var(--craft-paper-kraft);
+    background-image:
+      var(--craft-paper-lit),
+      var(--craft-paper-noise),
+      var(--craft-paper-fiber),
+      var(--craft-paper-kraft-gradient);
+    background-blend-mode: multiply, multiply, soft-light, normal;
+    box-shadow: inset 0 0 48px rgb(0 0 0 / 0.06);
+  }
+
+  /* ── Parchment variant ──────────────────────────────────────────────── */
+  .craft-paper-parchment {
+    @apply text-craft-ink;
+    background-color: var(--craft-paper-parchment);
+    background-image:
+      var(--craft-paper-lit),
+      var(--craft-paper-noise),
+      var(--craft-paper-fiber),
+      var(--craft-paper-parchment-gradient);
+    background-blend-mode: multiply, multiply, soft-light, normal;
+    box-shadow: inset 0 0 48px rgb(0 0 0 / 0.04);
   }
 
   .craft-paper-surface {
-    @apply craft-paper-base shadow-craft-paper;
+    @apply craft-paper-base;
+    box-shadow:
+      inset 0 0 48px rgb(0 0 0 / 0.04),
+      0 1px 2px rgb(0 0 0 / 0.08),
+      0 3px 10px rgb(0 0 0 / 0.06),
+      0 0 0 1px rgb(0 0 0 / 0.05);
   }
 
   .craft-paper-surface-lg {
-    @apply craft-paper-base shadow-craft-paper-lg;
+    @apply craft-paper-base;
+    box-shadow:
+      inset 0 0 64px rgb(0 0 0 / 0.05),
+      0 2px 4px rgb(0 0 0 / 0.09),
+      0 8px 28px rgb(0 0 0 / 0.08),
+      0 0 0 1px rgb(0 0 0 / 0.06);
   }
 
   /** Foam / glue dot lift — element looks pasted on top of the sheet */
   .craft-lift-paste {
     @apply craft-paper-base;
     box-shadow:
+      inset 0 0 48px rgb(0 0 0 / 0.04),
       0 1px 2px rgb(0 0 0 / 0.05),
       3px 4px 0 rgb(0 0 0 / 0.07),
       7px 12px 22px rgb(0 0 0 / 0.11),
@@ -39,10 +100,68 @@
   .craft-lift-paste-lg {
     @apply craft-paper-base;
     box-shadow:
+      inset 0 0 64px rgb(0 0 0 / 0.05),
       0 2px 3px rgb(0 0 0 / 0.06),
       4px 6px 0 rgb(0 0 0 / 0.08),
       10px 16px 30px rgb(0 0 0 / 0.13),
       0 0 0 1px rgb(0 0 0 / 0.07);
+  }
+
+  /* ── Deckled / torn edge variants ───────────────────────────────────────
+   *
+   * Three clip-path shapes that simulate hand-torn paper edges. Apply to
+   * any .craft-paper-* element. Each has a slightly different tear profile
+   * so repeated cards don't look identical.
+   *
+   * Usage:
+   *   <div class="craft-paper-surface craft-deckled-1"> … </div>
+   */
+  .craft-deckled-1 {
+    clip-path: polygon(
+      0% 1.2%,
+      1.8% 0%,
+      4% 0.8%,   6% 0%,   8.5% 1%,  11% 0%,   14% 0.6%,
+      17% 0%,   20% 0.9%, 24% 0%,   28% 0.7%, 33% 0%,
+      38% 0.5%, 43% 0%,   48% 0.8%, 53% 0%,   58% 0.6%,
+      63% 0%,   68% 0.9%, 73% 0%,   78% 0.7%, 83% 0%,
+      88% 0.5%, 93% 0%,   97% 0.8%, 100% 0%,
+      100% 98.5%,
+      98% 100%,  94% 99.2%, 90% 100%, 86% 99.4%, 82% 100%,
+      77% 99.1%, 72% 100%,  67% 99.5%, 62% 100%, 57% 99.2%,
+      52% 100%,  47% 99.4%, 42% 100%, 37% 99.1%, 32% 100%,
+      27% 99.5%, 22% 100%,  17% 99.2%, 12% 100%, 7% 99.4%,
+      2% 100%,   0% 98.8%
+    );
+  }
+
+  .craft-deckled-2 {
+    clip-path: polygon(
+      0.5% 0%,
+      5% 1%,    10% 0%,   16% 0.7%, 22% 0%,   28% 0.9%,
+      35% 0%,   41% 0.6%, 47% 0%,   53% 0.8%, 59% 0%,
+      65% 0.7%, 71% 0%,   77% 0.9%, 83% 0%,   89% 0.5%,
+      95% 0%,   100% 0.8%,
+      99% 100%,
+      93% 99.2%, 87% 100%, 81% 99.5%, 75% 100%, 69% 99.1%,
+      63% 100%,  57% 99.4%, 51% 100%, 45% 99.2%, 39% 100%,
+      33% 99.5%, 27% 100%,  21% 99.1%, 15% 100%, 9% 99.3%,
+      3% 100%,   0% 99%
+    );
+  }
+
+  .craft-deckled-3 {
+    clip-path: polygon(
+      0% 0.5%,
+      3% 0%,    7% 0.9%,  12% 0%,   18% 0.6%, 24% 0%,
+      30% 0.8%, 36% 0%,   42% 0.7%, 48% 0%,   54% 0.9%,
+      60% 0%,   66% 0.6%, 72% 0%,   78% 0.8%, 84% 0%,
+      90% 0.7%, 96% 0%,   100% 0.5%,
+      100% 99.5%,
+      96% 100%,  90% 99.3%, 84% 100%, 78% 99.6%, 72% 100%,
+      66% 99.2%, 60% 100%,  54% 99.4%, 48% 100%, 42% 99.1%,
+      36% 100%,  30% 99.5%, 24% 100%, 18% 99.2%, 12% 100%,
+      6% 99.4%,  0% 100%
+    );
   }
 
   /** Classic rope: two diagonal repeating gradients (no SVG tile). */
@@ -137,7 +256,7 @@
     mix-blend-mode: soft-light;
   }
 
-  /** Text fields — paper inset + crayon focus ring */
+  /** Text fields - paper inset + crayon focus ring */
   .craft-input-field {
     @apply w-full rounded-lg border-2 border-black/15 px-3 py-2 font-craftSans text-craft-ink;
     @apply bg-white/85 shadow-[inset_0_2px_5px_rgb(0_0_0_/_0.05)];
@@ -159,7 +278,7 @@
     opacity: 0.72;
   }
 
-  /** Debossed “pressed into paper” field (Note / stationery look) */
+  /** Debossed "pressed into paper" field (Note / stationery look) */
   .craft-input-field.craft-input-field-paper {
     @apply rounded-xl;
     border-width: 1px;
@@ -182,7 +301,7 @@
   }
 
   /**
-   * Radio “sketch tile”: blue diagonal hatch in square (Rough-like read, pure CSS).
+   * Radio "sketch tile": blue diagonal hatch in square (Rough-like read, pure CSS).
    * Inner .craft-radio-inner fills with orange when peer-checked.
    */
   .craft-radio-sketch-hatch {
@@ -204,7 +323,7 @@
       inset 0 -1px 2px rgb(0 0 0 / 0.06);
   }
 
-  /** Scrapbook list — pushpin / dot / numbered (see CraftList) */
+  /** Scrapbook list - pushpin / dot / numbered (see CraftList) */
   .craft-list {
     @apply font-craftSans text-craft-ink;
   }
@@ -253,7 +372,7 @@
     opacity: 0.85;
   }
 
-  /** No CSS marker — put CraftPaperClip or other art inside each `<li>` */
+  /** No CSS marker - put CraftPaperClip or other art inside each `<li>` */
   .craft-list--none {
     list-style: none;
     padding-left: 0;
@@ -315,7 +434,7 @@
     line-height: inherit;
   }
 
-  /** Data table — paper sheet */
+  /** Data table - paper sheet */
   .craft-table-wrap {
     @apply overflow-x-auto rounded-lg border-2 shadow-craft-paper;
     border-color: rgb(0 0 0 / 0.12);

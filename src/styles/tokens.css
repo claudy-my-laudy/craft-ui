@@ -51,8 +51,8 @@
   /* Coarse fiber */
   --craft-paper-fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='.14'/%3E%3C/svg%3E");
 
-  /* Mid-tone fiber shadow — low-opacity dark noise for surface relief */
-  --craft-paper-shadow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='.09'/%3E%3C/svg%3E");
+  /* Mid-tone shadow noise — adds surface relief depth */
+  --craft-paper-shadow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='1'/%3E%3C/svg%3E");
 
   /* Stronger fiber for scrapbook vibe */
   --craft-paper-fiber-strong: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.19' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='.22'/%3E%3C/svg%3E");
@@ -63,17 +63,17 @@
    * and the "wet-laid" center is lighter).
    */
 
-  /* Default: warm handmade cream */
-  --craft-paper: #f0e3bf;
-  --craft-paper-gradient: radial-gradient(ellipse at 38% 42%, #f5ebd0, #e0c98c);
+  /* Default: warm handmade cream (notebook / off-white) */
+  --craft-paper: #ede8da;
+  --craft-paper-gradient: radial-gradient(ellipse at 42% 35%, #f7f2e8, #ede8da 55%, #e0d9c6);
 
   /* Kraft: unbleached brown bag / packaging paper */
-  --craft-paper-kraft: #c8a969;
-  --craft-paper-kraft-gradient: radial-gradient(ellipse at 35% 40%, #d4b070, #b08030);
+  --craft-paper-kraft: #c8a040;
+  --craft-paper-kraft-gradient: radial-gradient(ellipse at 38% 38%, #d9b96a, #c8a040 55%, #b08828);
 
   /* Parchment: aged document / yellowed paper */
-  --craft-paper-parchment: #f0dfa0;
-  --craft-paper-parchment-gradient: radial-gradient(ellipse at 55% 45%, #f8efc0, #d9c070);
+  --craft-paper-parchment: #ede4a0;
+  --craft-paper-parchment-gradient: radial-gradient(ellipse at 45% 40%, #f5edbb, #ede4a0 50%, #dfd48a);
 
   /* Teal → peach translucent label (dimension tags, etc.) */
   --craft-tag-gradient: linear-gradient(118deg, rgb(160 210 200 / 0.82), rgb(240 195 175 / 0.88));

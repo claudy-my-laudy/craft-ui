@@ -9,22 +9,20 @@
     @apply text-craft-ink;
     background-color: var(--craft-paper);
     background-image:
-      var(--craft-paper-noise),
-      var(--craft-paper-fiber),
       var(--craft-paper-shadow),
+      var(--craft-paper-fiber),
       var(--craft-paper-gradient);
-    background-blend-mode: soft-light, soft-light, overlay, normal;
-    box-shadow: inset 0 0 48px rgb(0 0 0 / 0.04);
+    background-blend-mode: luminosity, soft-light, normal;
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.05);
   }
 
   [data-craft-vibe='scrapbook'] .craft-paper-base,
   [data-craft-vibe='scrapbook'].craft-paper-base {
     background-image:
-      var(--craft-paper-noise),
-      var(--craft-paper-fiber-strong),
       var(--craft-paper-shadow),
+      var(--craft-paper-fiber-strong),
       var(--craft-paper-gradient);
-    background-blend-mode: soft-light, soft-light, overlay, normal;
+    background-blend-mode: luminosity, soft-light, normal;
   }
 
   /* ── Kraft variant ──────────────────────────────────────────────────── */
@@ -32,12 +30,11 @@
     @apply text-craft-ink;
     background-color: var(--craft-paper-kraft);
     background-image:
-      var(--craft-paper-noise),
-      var(--craft-paper-fiber),
       var(--craft-paper-shadow),
+      var(--craft-paper-fiber),
       var(--craft-paper-kraft-gradient);
-    background-blend-mode: soft-light, soft-light, overlay, normal;
-    box-shadow: inset 0 0 48px rgb(0 0 0 / 0.06);
+    background-blend-mode: luminosity, soft-light, normal;
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.07);
   }
 
   /* ── Parchment variant ──────────────────────────────────────────────── */
@@ -45,30 +42,29 @@
     @apply text-craft-ink;
     background-color: var(--craft-paper-parchment);
     background-image:
-      var(--craft-paper-noise),
-      var(--craft-paper-fiber),
       var(--craft-paper-shadow),
+      var(--craft-paper-fiber),
       var(--craft-paper-parchment-gradient);
-    background-blend-mode: soft-light, soft-light, overlay, normal;
-    box-shadow: inset 0 0 48px rgb(0 0 0 / 0.04);
+    background-blend-mode: luminosity, soft-light, normal;
+    box-shadow: inset 0 0 60px rgba(0,0,0,0.04);
   }
 
   .craft-paper-surface {
     @apply craft-paper-base;
     box-shadow:
-      inset 0 0 48px rgb(0 0 0 / 0.04),
-      0 1px 2px rgb(0 0 0 / 0.08),
-      0 3px 10px rgb(0 0 0 / 0.06),
-      0 0 0 1px rgb(0 0 0 / 0.05);
+      inset 0 0 60px rgba(0,0,0,0.05),
+      0 2px 4px rgba(0,0,0,0.2),
+      0 8px 24px rgba(0,0,0,0.25),
+      inset 0 1px 0 rgba(255,255,255,0.2);
   }
 
   .craft-paper-surface-lg {
     @apply craft-paper-base;
     box-shadow:
-      inset 0 0 64px rgb(0 0 0 / 0.05),
-      0 2px 4px rgb(0 0 0 / 0.09),
-      0 8px 28px rgb(0 0 0 / 0.08),
-      0 0 0 1px rgb(0 0 0 / 0.06);
+      inset 0 0 80px rgba(0,0,0,0.06),
+      0 2px 6px rgba(0,0,0,0.22),
+      0 12px 32px rgba(0,0,0,0.28),
+      inset 0 1px 0 rgba(255,255,255,0.25);
   }
 
   /** Foam / glue dot lift — element looks pasted on top of the sheet */
